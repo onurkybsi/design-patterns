@@ -22,10 +22,10 @@ class SingleInstanceClassTest {
       return null;
     };
     List<Callable<Void>> concurrentSingletonInstanceCalls = new ArrayList<>();
-    IntStream.range(0, 3)
+    IntStream.range(0, 50)
         .forEach(i -> concurrentSingletonInstanceCalls.add(concurrentSingletonInstanceCall));
     // act
-    Executors.newFixedThreadPool(10).invokeAll(concurrentSingletonInstanceCalls, Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+    Executors.newFixedThreadPool(50).invokeAll(concurrentSingletonInstanceCalls, Long.MAX_VALUE, TimeUnit.MILLISECONDS);
     // assert
     int expectedHashCodeForAllInstances = SingleInstanceClass.getInstance().hashCode();
     assertTrue(receivedInstancesFromConcurrentCalls.stream()
