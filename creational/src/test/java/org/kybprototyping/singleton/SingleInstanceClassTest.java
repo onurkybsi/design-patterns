@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
@@ -15,7 +16,7 @@ class SingleInstanceClassTest {
   @Test
   void getInstance_Returns_SameInstance_ForEveryInovocation() throws InterruptedException {
     // arrange
-    List<SingleInstanceClass> receivedInstancesFromConcurrentCalls = new ArrayList<>();
+    List<SingleInstanceClass> receivedInstancesFromConcurrentCalls = Collections.synchronizedList(new ArrayList<>());
     Callable<Void> concurrentSingletonInstanceCall = () -> {
       SingleInstanceClass receivedInstance = SingleInstanceClass.getInstance();
       receivedInstancesFromConcurrentCalls.add(receivedInstance);
