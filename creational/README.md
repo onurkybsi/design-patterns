@@ -27,4 +27,4 @@ This class has only methods and no state so only one instance which is initiated
 1. To have exactly one instance of the class, we need to control construction of the class **setting its constructor as private**.
 2. To provide a global access point, we need **a static factory method which controls singularity**.
 
-[Check my implementation!](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/main/java/org/kybprototyping/singleton/SingleInstanceClass.java) And [see](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/test/java/org/kybprototyping/singleton/SingleInstanceClassTest.java#L16) that concurrent clients of the singleton class don't run into any issues when they get it.
+[Check my implementation!](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/main/java/org/kybprototyping/singleton/SingleInstanceClass.java) And [see](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/test/java/org/kybprototyping/singleton/SingleInstanceClassTest.java#L16) that concurrent clients of the singleton class don't run into any issues when they get the single instance.
