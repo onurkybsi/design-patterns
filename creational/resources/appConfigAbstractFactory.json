@@ -1,0 +1,25 @@
+{
+  "electronicsStore": {
+    "prefferredBrand": "Apple"
+  },
+  "apple": {
+    "iphone": {
+      "stock": 5,
+      "price": 1300
+    },
+    "chargingCable": {
+      "stock": 0,
+      "price": 20
+    }
+  },
+  "samsung": {
+    "galaxy": {
+      "stock": 5,
+      "price": 1300
+    },
+    "chargingCable": {
+      "stock": 0,
+      "price": 20
+    }
+  }
+}
