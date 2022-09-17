@@ -3,7 +3,9 @@ package org.kybprototyping.abstract_factory.impl.samsung;
 import org.kybprototyping.abstract_factory.CellPhone;
 import org.kybprototyping.abstract_factory.ChargingCable;
 import org.kybprototyping.abstract_factory.SupplierFactory;
+import org.kybprototyping.abstract_factory.impl.Imp;
 
+@Imp("apple")
 class SamsungFactory implements SupplierFactory {
   private final SamsungConfiguration configuration;
 
@@ -12,12 +14,12 @@ class SamsungFactory implements SupplierFactory {
   }
 
   @Override
-  public CellPhone produceCellPhone() {
+  public CellPhone getCellPhone() {
     return new Galaxy(configuration.getGalaxyConfig().getPrice());
   }
 
   @Override
-  public ChargingCable produceChargingCable() {
+  public ChargingCable getChargingCable() {
     return new SamsungChargingCable(configuration.getSamsungChargingCableConfig().getPrice());
   }
 

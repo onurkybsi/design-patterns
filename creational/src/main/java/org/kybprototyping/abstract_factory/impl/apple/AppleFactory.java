@@ -3,8 +3,14 @@ package org.kybprototyping.abstract_factory.impl.apple;
 import org.kybprototyping.abstract_factory.CellPhone;
 import org.kybprototyping.abstract_factory.ChargingCable;
 import org.kybprototyping.abstract_factory.SupplierFactory;
+import org.kybprototyping.abstract_factory.impl.Imp;
 
-class AppleFactory implements SupplierFactory {
+import java.util.logging.Logger;
+
+@Imp("apple")
+public class AppleFactory implements SupplierFactory {
+  private static Logger logger = Logger.getLogger("AppleFactory");
+
   private final AppleConfiguration configuration;
 
   public AppleFactory(AppleConfiguration configuration) {
@@ -12,13 +18,12 @@ class AppleFactory implements SupplierFactory {
   }
 
   @Override
-  public CellPhone produceCellPhone() {
+  public CellPhone getCellPhone() {
     return new Iphone(configuration.getIphoneConfig().getPrice());
   }
 
   @Override
-  public ChargingCable produceChargingCable() {
+  public ChargingCable getChargingCable() {
     return new AppleChargingCable(configuration.getAppleChargingCableConfig().getPrice());
   }
-
 }
