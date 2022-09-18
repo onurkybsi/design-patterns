@@ -3,9 +3,7 @@ package org.kybprototyping.abstract_factory.impl.samsung;
 import org.kybprototyping.abstract_factory.CellPhone;
 import org.kybprototyping.abstract_factory.ChargingCable;
 import org.kybprototyping.abstract_factory.SupplierFactory;
-import org.kybprototyping.abstract_factory.impl.Imp;
 
-@Imp("apple")
 class SamsungFactory implements SupplierFactory {
   private final SamsungConfiguration configuration;
 

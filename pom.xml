@@ -10,6 +10,7 @@
 
   <modules>
     <module>creational</module>
+    <module>lab</module>
   </modules>
 
   <properties>
