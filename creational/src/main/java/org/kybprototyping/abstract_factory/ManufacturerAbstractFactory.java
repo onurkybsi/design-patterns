@@ -1,6 +1,6 @@
 package org.kybprototyping.abstract_factory;
 
-public interface SupplierFactory {
+public interface ManufacturerAbstractFactory {
   CellPhone getCellPhone();
 
   ChargingCable getChargingCable();

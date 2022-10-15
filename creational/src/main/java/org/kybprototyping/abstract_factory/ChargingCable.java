@@ -4,6 +4,4 @@ public interface ChargingCable {
   public String getBrand();
 
   public Integer getPrice();
-
-  public String getType();
 }
