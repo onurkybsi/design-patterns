@@ -31,10 +31,18 @@ This class has only methods and no state so only one instance which is initiated
 
 ## Abstract Factory
 
--
+Abstract factory design pattern propose a solution to *create related or dependent objects together* while hiding the implementation details.
 
 ### Motivation
 
--
+Let say that you're going to integrate your system to a 3rd party(external) system by applying your business rules. The 3rd party system has a REST API for its partner like you and you're going to use it for that integration. For that kind of integration you would probably use two component in your system like: `SomeServiceXImpl`(implements `SomeService`) and `3rdPartyClientXImpl`(impelements `3rdPartyClient`). Obviously, these implementations are related and dependent to each other. You don't want to create `SomeServiceXImpl` with another `3rdPartyClient` implementation and `3rdPartyClientXImpl` withouth existence of `SomeServiceXImpl`(becasue `3rdPartyClientXImpl` is only used by `SomeServiceXImpl`).
+
+Probably, you're going to have new 3rd parties for the same business cases(I'm sure that you are :smile:) and you will want to bundle these related objects together. So, how ? :slightly_smiling_face:
 
 ### Solution
+
+In the [example](https://github.com/onurkybsi/design-patterns/tree/main/creational/src/main/java/org/kybprototyping/abstract_factory) I've developed, I've used the dependency between a [`CellPhone`](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/main/java/org/kybprototyping/abstract_factory/CellPhone.java#L3) and its [`ChargingCable`](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/main/java/org/kybprototyping/abstract_factory/ChargingCable.java#L3). The [`Supplier`](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/main/java/org/kybprototyping/abstract_factory/Supplier.java#L7) needs to bundle these objects together because a cell phone X cannot be charged with the charging cable Y.
+
+1. Define the abstract factory &#8594; [`ManufacturerAbstractFactory`](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/main/java/org/kybprototyping/abstract_factory/ManufacturerAbstractFactory.java#L3)
+2. Implement the factory for the different related object families(`CellPhone`, `ChargingCable`) &#8594; [`AppleFactory`](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/main/java/org/kybprototyping/abstract_factory/impl/apple/AppleFactory.java#L7) && [`SamsungFactory`](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/main/java/org/kybprototyping/abstract_factory/impl/samsung/SamsungFactory.java#L7)
+3. The created factories by the given configuration(`Brand` choice) will create the related objects together, inconsistency won't be happen and the client of the `Supplier` will not know anything about the implementation detail(check the [test](https://github.com/onurkybsi/design-patterns/blob/main/creational/src/test/java/org/kybprototyping/abstract_factory/abstract_factory/SupplierTest.java#L9) for the scenario).
