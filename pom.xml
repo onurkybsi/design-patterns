@@ -11,6 +11,7 @@
   <modules>
     <module>creational</module>
     <module>lab</module>
+    <module>structural</module>
   </modules>
 
   <properties>
