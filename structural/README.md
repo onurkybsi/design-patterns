@@ -6,6 +6,7 @@
 
 I will give the example of an adapter and socket that you can see in almost most sources, which I think makes this design pattern easy to understand. When you travel EU from US, you might not be able to charge your telephone because of the power plug.
 In US; the power plug standard is different than EU so, you'll need an **adapter**!
+
 ![adapter](https://m.media-amazon.com/images/W/WEBP_402378-T2/images/I/31pAm6p4fDL._AC_.jpg)
 
 ### Motivation
