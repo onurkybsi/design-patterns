@@ -20,7 +20,8 @@ public class NewThirdPartyAdapter {
   private static final String NEW_THIRD_PARTY_API_BASE_URL = "http://localhost:8080/api";
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-  // Existing system uses File as the type of identification data 
+  // Existing system uses File as the type of identification data
+  // and we let it to pass existing data type, the adaptor is going to find the way to pass that data to the new 3rd part API
   public void onboardCustomerOnNewThirdParty(File identificationData) {
     List<String> lines = new ArrayList<>();
     try (var reader = new BufferedReader(new FileReader(identificationData))) {

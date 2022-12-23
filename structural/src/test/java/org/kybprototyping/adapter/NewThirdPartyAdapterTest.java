@@ -12,11 +12,7 @@ import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
 import org.mockserver.verify.VerificationTimes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 class NewThirdPartyAdapterTest extends MockNewThirdPartyRestApiServer {
-  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-  
   @Test
   void onboardCustomerOnNewThirdParty_Should_Convert_Given_File_To_Proper_Identification_Data_Json_String_And_Passes_To_New_Third_Party_Rest_Api() {
     // given
@@ -30,6 +26,7 @@ class NewThirdPartyAdapterTest extends MockNewThirdPartyRestApiServer {
             .response()
             .withStatusCode(200));
     IdentificationDataProviderService identificationDataProviderService = new IdentificationDataProviderServiceImpl();
+    
     // when
     new NewThirdPartyAdapter().onboardCustomerOnNewThirdParty(identificationDataProviderService.getIdentificationData(UUID.fromString("62a3fee1-c006-4512-8296-752ff18b8d10")));
 

@@ -5,6 +5,6 @@ import java.util.UUID;
 
 // Existing interface
 public interface IdentificationDataProviderService {
-  // Returns something that the new 3rd part doesn't expect
+  // Returns something that the new 3rd part doesn't accept
   File getIdentificationData(UUID userId);
 }
