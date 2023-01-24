@@ -1,11 +1,11 @@
 package org.kybprototyping.observer;
 
-public interface Subject {
+public interface Subject<T> {
 
-  void attach(Observer observer);
+  void register(Observer<T> observer);
 
-  void detach(Observer observer);
+  void unregister(Observer<T> observer);
 
-  void notifyObservers();
+  void notify(T state);
 
 }
