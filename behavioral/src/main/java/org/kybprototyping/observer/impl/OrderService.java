@@ -1,27 +1,32 @@
 package org.kybprototyping.observer.impl;
 
 import org.kybprototyping.observer.Observer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class OrderService implements Observer<Transaction> {
+public class OrderService implements Observer<Event> {
 
-  private final TransactionManager transactionManager;
+  private static final List<UUID> ORDERS = new ArrayList<>();
 
-  public OrderService(TransactionManager transactionManager) {
+  private final EventManager transactionManager;
+
+  public OrderService(EventManager transactionManager) {
     this.transactionManager = transactionManager;
   }
 
   @Override
-  public void receive(Transaction state) {
-    // might be part of different kind of transaction
+  public void receive(Event state) {
+    //
   }
 
-  public void order() {
-    // order is being saved to database
-
-    UUID orderId = UUID.randomUUID();
-
-    this.transactionManager.notify(new Transaction(orderId, this.getClass().getSimpleName()));
+  public void saveOrder(UUID id) {
+    try {
+      // order is being saved...
+      ORDERS.add(id);
+    } catch (Exception e) {
+      transactionManager.notify(new Event(id, "OrderCouldNotBeSaved"));
+    }
   }
 
 }

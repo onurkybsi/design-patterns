@@ -2,29 +2,34 @@ package org.kybprototyping.observer.impl;
 
 import org.kybprototyping.observer.Observer;
 import java.util.UUID;
+import java.util.logging.Logger;
 
-public class PaymentService implements Observer<Transaction> {
+public class PaymentService implements Observer<Event> {
 
-  private static final String SERVICE_TO_WAIT = "OrderService";
+  private static final Logger logger = Logger.getLogger("PaymentService");
 
-  private final TransactionManager transactionManager;
+  private final EventManager transactionManager;
 
-  public PaymentService(TransactionManager transactionManager) {
+  public PaymentService(EventManager transactionManager) {
     this.transactionManager = transactionManager;
   }
 
   @Override
-  public void receive(Transaction state) {
-    if (SERVICE_TO_WAIT.equals(state.getService())) {
-      receivePayment(state.getId());
+  public void receive(Event state) {
+    if ("OrderCouldNotBeSaved".equals(state.getType())) {
+      refund(state.getId());
     }
   }
 
-  private void receivePayment(UUID orderId) {
-    // payment is being received
+  private void refund(UUID id) {}
 
-    // payment is successful, then:
-    transactionManager.notify(new Transaction(orderId, this.getClass().getSimpleName()));
+  public void receivePayment(UUID orderId) {
+    try {
+      logger.info("Payment receiving...");
+      transactionManager.notify(new Event(orderId, "PaymentReceived"));
+    } catch (Exception e) {
+      transactionManager.notify(new Event(orderId, "PaymentCouldNotBeReceived"));
+    }
   }
 
 }

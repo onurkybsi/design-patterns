@@ -2,26 +2,21 @@ package org.kybprototyping.observer.impl;
 
 import org.kybprototyping.observer.Observer;
 import java.util.UUID;
+import java.util.logging.Logger;
 
-public class BasketService implements Observer<Transaction> {
+public class BasketService implements Observer<Event> {
 
-  private static final String SERVICE_TO_WAIT = "PaymentService";
+  private static final Logger logger = Logger.getLogger("DeliveryService");
 
-  private final TransactionManager transactionManager;
+  private final EventManager transactionManager;
 
-  public BasketService(TransactionManager transactionManager) {
+  public BasketService(EventManager transactionManager) {
     this.transactionManager = transactionManager;
   }
 
   @Override
-  public void receive(Transaction state) {
-    if (SERVICE_TO_WAIT.equals(state.getService())) {
-      updateBasket(state.getId());
-    }
-  }
+  public void receive(Event state) {}
 
-  private void updateBasket(UUID id) {
-    // basket is being updated...
-  }
+  private void updateBasket(UUID id) {}
 
 }

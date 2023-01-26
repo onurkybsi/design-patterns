@@ -2,29 +2,21 @@ package org.kybprototyping.observer.impl;
 
 import org.kybprototyping.observer.Observer;
 import java.util.UUID;
+import java.util.logging.Logger;
 
-public class DeliveryService implements Observer<Transaction> {
+public class DeliveryService implements Observer<Event> {
 
-  private static final String SERVICE_TO_WAIT = "PaymentService";
+  private static final Logger logger = Logger.getLogger("DeliveryService");
 
-  private final TransactionManager transactionManager;
+  private final EventManager transactionManager;
 
-  public DeliveryService(TransactionManager transactionManager) {
+  public DeliveryService(EventManager transactionManager) {
     this.transactionManager = transactionManager;
   }
 
   @Override
-  public void receive(Transaction state) {
-    if (SERVICE_TO_WAIT.equals(state.getService())) {
-      saveDelivery(state.getId());
-    }
+  public void receive(Event state) {}
 
-    // maybe notification service ?
-    this.transactionManager.notify(new Transaction(state.getId(), this.getClass().getSimpleName()));
-  }
-
-  private void saveDelivery(UUID id) {
-    // new delivery operation is being saved...
-  }
+  private void saveDelivery(UUID id) {}
 
 }

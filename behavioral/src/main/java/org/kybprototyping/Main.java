@@ -1,10 +1,12 @@
 package org.kybprototyping;
 
-import org.kybprototyping.observer.impl.TransactionManager;
+import java.util.logging.Logger;
 
 public class Main {
-  public static void main(String[] args) {
-    TransactionManager manager = new TransactionManager();
 
+  private static final Logger logger = Logger.getLogger("Main");
+
+  public static void main(String[] args) {
+    logger.info("Hello World!");
   }
 }
