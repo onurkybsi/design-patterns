@@ -4,21 +4,32 @@ import java.util.UUID;
 
 public class Event {
 
-  private final UUID id;
+	private final UUID id;
+	private final String reference;
+	private final String type;
+	private final String message;
 
-  private final String type;
+	public Event(String reference, String type, String message) {
+		this.id = UUID.randomUUID();
+		this.reference = reference;
+		this.type = type;
+		this.message = message;
+	}
 
-  public Event(UUID id, String type) {
-    this.id = id;
-    this.type = type;
-  }
+	public UUID getId() {
+		return id;
+	}
 
-  public UUID getId() {
-    return id;
-  }
+	public String getReference() {
+		return reference;
+	}
 
-  public String getType() {
-    return this.type;
-  }
+	public String getType() {
+		return type;
+	}
+
+	public String getMessage() {
+		return message;
+	}
 
 }
