@@ -46,11 +46,12 @@ public class OrderService implements Observer<Event> {
 	private final EventManager eventManager;
 
 	public OrderService(EventManager eventManager) {
+		eventManager.attach(this);
 		this.eventManager = eventManager;
 	}
 
 	@Override
-	public void receive(Event event) {
+	public void update(Event event) {
 		if ("PaymentFailed".equals(event.getType())) {
 			// do what do you want to do in the payment failure case
 			orders.removeIf(o -> event.getReference().equals(o.getId().toString()));

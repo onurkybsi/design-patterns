@@ -35,11 +35,12 @@ public class PaymentService implements Observer<Event> {
 	private final EventManager eventManager;
 
 	public PaymentService(EventManager eventManager) {
+		eventManager.attach(this);
 		this.eventManager = eventManager;
 	}
 
 	@Override
-	public void receive(Event event) {
+	public void update(Event event) {
 		if ("BasketFailed".equals(event.getType())) {
 			var relatedPayment = payments.stream()
 					.filter(p -> event.getReference().equals(p.getReference())).findFirst().orElseThrow();

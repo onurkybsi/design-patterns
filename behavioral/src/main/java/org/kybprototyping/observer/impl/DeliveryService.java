@@ -4,10 +4,14 @@ import org.kybprototyping.observer.Observer;
 
 public class DeliveryService implements Observer<Event> {
 
-	@Override
-	public void receive(Event state) {
-		// TODO Auto-generated method stub
+	private final EventManager eventManager;
 
+	public DeliveryService(EventManager eventManager) {
+		eventManager.attach(this);
+		this.eventManager = eventManager;
 	}
+
+	@Override
+	public void update(Event state) {}
 
 }

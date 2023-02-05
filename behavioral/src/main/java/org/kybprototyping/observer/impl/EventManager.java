@@ -9,14 +9,14 @@ public class EventManager implements Subject<Event> {
 	private static final HashSet<Observer<Event>> observers = new HashSet<>();
 
 	@Override
-	public void subscribe(Observer<Event> observer) {
+	public void attach(Observer<Event> observer) {
 		if (!observers.contains(observer)) {
 			observers.add(observer);
 		}
 	}
 
 	@Override
-	public void unsubscribe(Observer<Event> observer) {
+	public void deattach(Observer<Event> observer) {
 		if (observers.contains(observer)) {
 			observers.remove(observer);
 		}
@@ -25,7 +25,7 @@ public class EventManager implements Subject<Event> {
 	@Override
 	public void notify(Event event) {
 		validateEvent(event);
-		observers.forEach(o -> o.receive(event));
+		observers.forEach(o -> o.update(event));
 	}
 
 	private void validateEvent(Event event) {
