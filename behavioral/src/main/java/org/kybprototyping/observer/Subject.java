@@ -1,7 +1,7 @@
 package org.kybprototyping.observer;
 
 /**
- * Represents the interface which the subject componenets should support
+ * Represents the interface which the subject components should support
  * 
  * @author Onur Kayabasi
  */
@@ -17,9 +17,9 @@ public interface Subject<T> {
 
 	/**
 	 * Unregisters the given {@code observer} from the subject. So, the {@code observer} is not
-	 * notified when the {@code <T>} state is changed.
+	 * notified anymore when the {@code <T>} state is changed.
 	 * 
-	 * @param observer registered observer which is not going to be notified anymore
+	 * @param observer registered observer which should not be notified anymore
 	 */
 	void deattach(Observer<T> observer);
 

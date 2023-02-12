@@ -1,5 +1,7 @@
 package org.kybprototyping.observer.impl;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class Event {
@@ -8,6 +10,7 @@ public class Event {
 	private final String reference;
 	private final String type;
 	private final String message;
+	private final Map<String, String> metadata = new HashMap<>();
 
 	public Event(String reference, String type, String message) {
 		this.id = UUID.randomUUID();
@@ -30,6 +33,14 @@ public class Event {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public void addMetadata(String key, String value) {
+		this.metadata.put(key, value);
+	}
+
+	public String getMetadata(String key) {
+		return this.metadata.get(key);
 	}
 
 }
