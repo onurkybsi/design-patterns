@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -68,34 +69,50 @@ public class ProductService implements Observer<Event> {
 
 	@Override
 	public void update(Event event) {
+		// if an order is created
+		// the product should be attached to the order decreasing the stock of it
 		if ("OrderCreated".equals(event.getType())) {
 			attachOrderReferenceToProduct(event);
+			return;
 		}
 
 		// if payment fails in Payment Service,
 		// the stock should be increased
 		if ("PaymentFailed".equals(event.getType())) {
-
+			increaseStock(event.getReference());
+			return;
 		}
 
 		// if delivery fails in Delivery Service,
 		// the stock should be increased
 		if ("DeliveryFailed".equals(event.getType())) {
-
+			increaseStock(event.getReference());
 		}
-
 	}
 
 	private void attachOrderReferenceToProduct(Event orderCreatedEvent) {
-		UUID producId = Optional.ofNullable(orderCreatedEvent.getMetadata("productId"))
-				.map(UUID::fromString).orElseThrow();
-		var relatedProduct =
-				products.stream().filter(p -> p.getId().equals(producId)).findFirst().orElseThrow();
-		relatedProduct.setStock(relatedProduct.getStock() - 1);
+		logger.log(Level.INFO, "Order({}) is being attached to the product",
+				orderCreatedEvent.getReference());
+
+		try {
+			// etract the product id from metadata of the event
+			UUID producId = Optional.ofNullable(orderCreatedEvent.getMetadata("productId"))
+					.map(UUID::fromString).orElseThrow();
+
+			// find the related product from the data repository and update it by the event
+			var relatedProduct =
+					products.stream().filter(p -> p.getId().equals(producId)).findFirst().orElseThrow();
+			relatedProduct.getReferences().add(orderCreatedEvent.getReference());
+			relatedProduct.setStock(relatedProduct.getStock() - 1);
+		} catch (Exception e) {
+			// logging stuff here
+			eventManager
+					.notify(new Event(orderCreatedEvent.getReference(), "StockUpdateFailed", e.getMessage()));
+		}
 	}
 
 	private void increaseStock(String reference) {
-		// find the order related
+		// find the related order and increase the stock
 		var relatedProduct = products.stream().filter(p -> p.getReferences().contains(reference))
 				.findFirst().orElseThrow();
 		relatedProduct.setStock(relatedProduct.getStock() + 1);
